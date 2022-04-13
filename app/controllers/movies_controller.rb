@@ -43,7 +43,7 @@ class MoviesController < ApplicationController
       @movie.save
       redirect_to(movie_url(@movie), notice: "Movie updated successfully.")
     else
-      redirect_to(movie_url(@movie), alert: "Movie failed to update successfully.")
+      redirect_to(movie_url(Movie.find(params.fetch(:id))), alert: "Movie failed to update successfully.")
     end
   end
 

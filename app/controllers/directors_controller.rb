@@ -25,30 +25,30 @@ class DirectorsController < ApplicationController
 
     if @director.valid?
       @director.save
-      redirect_to(directors_url, notice: "director created successfully.")
+      redirect_to(directors_url, notice: "Director created successfully.")
     else
       render "new"
     end
   end
 
   def edit
-    @director = director.find(params.fetch(:id))
+    @director = Director.find(params.fetch(:id))
   end
 
   def update
-    director_attributes = params.require(:director).permit(:name, :biography)
-    @director = director.new(director_attributes)
+    director_attributes = params.require(:director).permit(:id, :name, :biography)
+    @director = Director.new(director_attributes)
 
     if @director.valid?
       @director.save
       redirect_to(director_url(@director), notice: "Director updated successfully.")
     else
-      redirect_to(director_url(@director), alert: "Director failed to update successfully.")
+      redirect_to(director_url(Director.find(params.fetch(:id))), alert: "Director failed to update successfully.")
     end
   end
 
   def destroy
-    @director = director.find(params.fetch(:id))
+    @director = Director.find(params.fetch(:id))
     @director.destroy
     redirect_to(directors_url, notice: "Director deleted successfully." )
   end
